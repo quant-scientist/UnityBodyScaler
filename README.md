@@ -52,4 +52,8 @@ UnityBodyScaler/
 
 ## License
 
-This project is proprietary and confidential. All rights reserved. 
+This project is proprietary and confidential. All rights reserved.
+
+## Demo Video
+
+[Watch the project demo on YouTube](https://youtu.be/mqO5SiFyxsA) 

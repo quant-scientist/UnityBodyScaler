@@ -141,44 +141,32 @@ public class UIManager : MonoBehaviour
     private void UpdateModelScale(float value)
     {
         bodyScaler.scaleFactor = value;
-        // Update all loaded models
-        foreach (Transform child in bodyScaler.modelContainer)
-        {
-            bodyScaler.ScaleModel(child.gameObject, Vector3.one * value);
-        }
+        bodyScaler.UpdateAvatarScale();
     }
 
     private void UpdateRotationX(float value)
     {
-        UpdateModelRotation(Vector3.right * value);
+        bodyScaler.UpdateRotation(new Vector3(value, bodyScaler.GetCurrentRotation().y, bodyScaler.GetCurrentRotation().z));
     }
 
     private void UpdateRotationY(float value)
     {
-        UpdateModelRotation(Vector3.up * value);
+        bodyScaler.UpdateRotation(new Vector3(bodyScaler.GetCurrentRotation().x, value, bodyScaler.GetCurrentRotation().z));
     }
 
     private void UpdateRotationZ(float value)
     {
-        UpdateModelRotation(Vector3.forward * value);
-    }
-
-    private void UpdateModelRotation(Vector3 rotation)
-    {
-        foreach (Transform child in bodyScaler.modelContainer)
-        {
-            bodyScaler.RotateModel(child.gameObject, rotation);
-        }
+        bodyScaler.UpdateRotation(new Vector3(bodyScaler.GetCurrentRotation().x, bodyScaler.GetCurrentRotation().y, value));
     }
 
     private void ExportCurrentModel()
     {
-        // Implement single model export
+        bodyScaler.ExportCurrentModel();
     }
 
     private void ExportAllModels()
     {
-        // Implement batch export
+        bodyScaler.ExportAllModels();
     }
 
     public void ToggleMeasurementPanel(bool show)

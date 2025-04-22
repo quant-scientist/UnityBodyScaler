@@ -37,9 +37,6 @@ public class STLHandler : MonoBehaviour
             meshFilter.mesh = mesh;
             meshRenderer.material = new Material(Shader.Find("Standard"));
             
-            // Add to the model container
-            model.transform.SetParent(bodyScaler.modelContainer);
-            
             return model;
         }
         catch (System.Exception e)
@@ -108,13 +105,8 @@ public class STLHandler : MonoBehaviour
             return;
         }
 
-        Mesh originalMesh = meshFilter.mesh;
-        Mesh simplifiedMesh = new Mesh();
-        
-        // Implement mesh simplification here
-        // This is a placeholder - actual implementation would use
-        // a mesh simplification algorithm
-        
-        meshFilter.mesh = simplifiedMesh;
+        // Implement mesh optimization logic here
+        // This would involve reducing vertex count while maintaining shape
+        Debug.Log($"Optimizing mesh with quality factor: {quality}");
     }
 } 

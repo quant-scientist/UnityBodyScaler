@@ -7,13 +7,13 @@ public class BodyScaler : MonoBehaviour
     [System.Serializable]
     public class BodyMeasurements
     {
-        public float height;
-        public float chest;
-        public float waist;
-        public float hips;
-        public float shoulderWidth;
-        public float armLength;
-        public float legLength;
+        public float height = 180f;
+        public float chest = 100f;
+        public float waist = 80f;
+        public float hips = 90f;
+        public float shoulderWidth = 45f;
+        public float armLength = 60f;
+        public float legLength = 90f;
     }
 
     public BodyMeasurements measurements = new BodyMeasurements();
@@ -23,6 +23,7 @@ public class BodyScaler : MonoBehaviour
 
     private GameObject currentAvatar;
     private List<GameObject> loadedModels = new List<GameObject>();
+    private Vector3 currentRotation;
 
     void Start()
     {
@@ -37,6 +38,7 @@ public class BodyScaler : MonoBehaviour
         }
 
         currentAvatar = Instantiate(avatarPrefab, Vector3.zero, Quaternion.identity);
+        currentAvatar.transform.SetParent(modelContainer);
         UpdateAvatarScale();
     }
 
@@ -45,19 +47,50 @@ public class BodyScaler : MonoBehaviour
         if (currentAvatar == null) return;
 
         // Calculate scale based on height
-        float heightScale = measurements.height / 1.8f; // Assuming 1.8m is the default height
-        Vector3 newScale = new Vector3(heightScale, heightScale, heightScale);
-        currentAvatar.transform.localScale = newScale;
-
+        float heightScale = measurements.height / 180f; // Assuming 180cm is the default height
+        Vector3 newScale = new Vector3(heightScale, heightScale, heightScale) * scaleFactor;
+        
         // Apply specific body part scaling
+        currentAvatar.transform.localScale = newScale;
+        
+        // You can add more specific scaling logic here for individual body parts
         ApplyBodyPartScaling();
     }
 
     private void ApplyBodyPartScaling()
     {
-        // Implement specific body part scaling logic here
-        // This would involve scaling different parts of the avatar mesh
-        // based on the measurements
+        // This method would contain logic to scale specific body parts
+        // based on chest, waist, hips, etc.
+        // For now, it's a placeholder for future implementation
+    }
+
+    public void UpdateRotation(Vector3 newRotation)
+    {
+        currentRotation = newRotation;
+        if (currentAvatar != null)
+        {
+            currentAvatar.transform.localEulerAngles = currentRotation;
+        }
+    }
+
+    public Vector3 GetCurrentRotation()
+    {
+        return currentRotation;
+    }
+
+    public void ExportCurrentModel()
+    {
+        if (currentAvatar != null)
+        {
+            // Implementation for exporting current model
+            Debug.Log("Exporting current model...");
+        }
+    }
+
+    public void ExportAllModels()
+    {
+        // Implementation for batch export
+        Debug.Log("Exporting all models...");
     }
 
     public void LoadSTLModel(string filePath)
